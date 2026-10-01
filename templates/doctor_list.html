@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Find a Doctor - Sehat Saathi</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .header {
+            background: #0f766e;
+            color: white;
+            padding: 25px 40px;
+        }
+
+        .header h1 {
+            margin: 0 0 8px 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: #0f766e;
+            font-weight: bold;
+        }
+
+        /* SMART MATCHING */
+
+        .smart-match {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            border-left: 5px solid #0f766e;
+        }
+
+        .smart-match h2 {
+            margin-top: 0;
+            color: #0f766e;
+        }
+
+        .smart-match p {
+            line-height: 1.6;
+        }
+
+        .smart-match textarea {
+            width: 100%;
+            min-height: 110px;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            resize: vertical;
+        }
+
+        .smart-match button {
+            margin-top: 12px;
+            background: #0f766e;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .smart-match button:hover {
+            background: #115e59;
+        }
+
+        .safety-note {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fff8e1;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* FILTER */
+
+        .top-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .top-bar label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        select {
+            width: 100%;
+            max-width: 400px;
+            padding: 11px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        /* DOCTORS */
+
+        .doctor-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .doctor-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .doctor-card h2 {
+            margin-top: 0;
+            color: #0f766e;
+        }
+
+        .specialty {
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .info {
+            margin: 8px 0;
+        }
+
+        .fee {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #166534;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .book-button {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 18px;
+            padding: 12px;
+            background: #0f766e;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .book-button:hover {
+            background: #115e59;
+        }
+
+        .empty {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 22px 20px;
+            }
+
+            .container {
+                margin-top: 20px;
+                padding: 0 15px;
+            }
+
+            .smart-match,
+            .top-bar,
+            .doctor-card {
+                padding: 18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="header">
+
+        <h1>
+            Find a Doctor
+        </h1>
+
+        <p>
+            Choose a doctor according to your medical need.
+        </p>
+
+    </div>
+
+
+    <div class="container">
+
+        <a
+            href="/profile"
+            class="back"
+        >
+            ← Back to Profile
+        </a>
+
+
+        <!-- SMART DOCTOR MATCHING -->
+
+        <div class="smart-match">
+
+            <h2>
+                🤖 Smart Doctor Matching
+            </h2>
+
+            <p>
+                Apni health problem ya concern simple language
+                me describe karein. Sehat Saathi AI available
+                doctor specialties ke basis par suitable
+                specialty suggest karega.
+            </p>
+
+            <form
+                action="/doctors/smart-match"
+                method="post"
+            >
+
+                <textarea
+                    name="question"
+                    maxlength="2000"
+                    required
+                    placeholder="Example: Mujhe kuch dino se aankhon me irritation aur blurry vision ho rahi hai..."
+                ></textarea>
+
+                <button type="submit">
+                    🤖 Find My Doctor
+                </button>
+
+            </form>
+
+            <div class="safety-note">
+
+                ⚠️
+                <strong>Important:</strong>
+                AI sirf doctor specialty matching me help karta hai.
+                Ye medical diagnosis nahi hai. Serious ya emergency
+                symptoms me appropriate medical care immediately lein.
+
+            </div>
+
+        </div>
+
+
+        <!-- SPECIALTY FILTER -->
+
+        <div class="top-bar">
+
+            <label for="specialty">
+                Filter by Specialty
+            </label>
+
+            <select
+                id="specialty"
+                onchange="filterDoctors()"
+            >
+
+                <option value="all">
+                    All Specialties
+                </option>
+
+                {% for specialty in specialties %}
+
+                <option value="{{ specialty }}">
+                    {{ specialty }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+        <!-- DOCTOR LIST -->
+
+        {% if doctors %}
+
+        <div class="doctor-grid">
+
+            {% for doctor in doctors %}
+
+            <div
+                class="doctor-card"
+                data-specialty="{{ doctor.specialty }}"
+            >
+
+                <h2>
+                    {{ doctor.name }}
+                </h2>
+
+                <div class="specialty">
+                    {{ doctor.specialty }}
+                </div>
+
+                <div class="info">
+
+                    <strong>
+                        Qualification:
+                    </strong>
+
+                    {{ doctor.qualification or "-" }}
+
+                </div>
+
+                <div class="info">
+
+                    <strong>
+                        Experience:
+                    </strong>
+
+                    {{ doctor.experience_years or 0 }}
+                    years
+
+                </div>
+
+                <div class="info">
+
+                    <strong>
+                        Phone:
+                    </strong>
+
+                    {{ doctor.phone or "-" }}
+
+                </div>
+
+                <div class="info">
+
+                    <strong>
+                        Email:
+                    </strong>
+
+                    {{ doctor.email or "-" }}
+
+                </div>
+
+                <div class="fee">
+
+                    Consultation Fee:
+                    ₹{{ doctor.consultation_fee }}
+
+                </div>
+
+                <span class="status">
+                    Available
+                </span>
+
+                <!-- BOOK APPOINTMENT -->
+
+                <a
+                    href="/appointments/book/{{ doctor.id }}"
+                    class="book-button"
+                >
+                    📅 Book Appointment
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="empty">
+
+            <h2>
+                No doctors available
+            </h2>
+
+            <p>
+                Please check again later.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <script>
+
+        function filterDoctors() {
+
+            const selected =
+                document.getElementById(
+                    "specialty"
+                ).value;
+
+            const cards =
+                document.querySelectorAll(
+                    ".doctor-card"
+                );
+
+            cards.forEach(function(card) {
+
+                const specialty =
+                    card.dataset.specialty;
+
+                if (
+                    selected === "all" ||
+                    specialty === selected
+                ) {
+
+                    card.style.display = "block";
+
+                } else {
+
+                    card.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

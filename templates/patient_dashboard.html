@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Dashboard | Sanjeevani Clinic</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            color: #123c69;
+            font-size: 22px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logout {
+            color: #dc2626;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        .welcome {
+            margin-bottom: 30px;
+        }
+
+        .welcome h1 {
+            margin: 0 0 8px;
+            color: #123c69;
+        }
+
+        .welcome p {
+            color: #6b7280;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #123c69;
+            font-size: 19px;
+        }
+
+        .card p {
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .button {
+            display: inline-block;
+
+            margin-top: 12px;
+            padding: 11px 18px;
+
+            background: #123c69;
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: 600;
+        }
+
+        .button:hover {
+            opacity: 0.9;
+        }
+
+        .profile-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .profile-card h2 {
+            color: #123c69;
+            margin-top: 0;
+        }
+
+        .security {
+            margin-top: 30px;
+
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+
+            color: #166534;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 94%;
+            }
+
+            .header {
+                padding: 16px 4%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <a href="/dashboard" class="brand">
+        Sanjeevani Clinic
+    </a>
+
+    <a href="/auth/logout" class="logout">
+        Logout
+    </a>
+
+</header>
+
+
+<main class="container">
+
+
+    <section class="welcome">
+
+        <h1>
+            Welcome, {{ user.name }} 👋
+        </h1>
+
+        <p>
+            Manage your health information,
+            appointments, reports and clinic services.
+        </p>
+
+    </section>
+
+
+    <section class="profile-card">
+
+        <h2>
+            👤 My Account
+        </h2>
+
+        <p>
+            <strong>Name:</strong>
+            {{ user.name }}
+        </p>
+
+        <p>
+            <strong>Email:</strong>
+            {{ user.email }}
+        </p>
+
+        <p>
+            <strong>Mobile:</strong>
+            {{ user.mobile }}
+        </p>
+
+        <a
+            href="/profile"
+            class="button"
+        >
+            View / Update Profile
+        </a>
+
+    </section>
+
+
+    <section class="grid">
+
+
+        <div class="card">
+
+            <h2>📄 Medical Reports</h2>
+
+            <p>
+                Upload and view your medical PDF reports
+                and get AI-assisted explanations.
+            </p>
+
+            <a
+                href="/medical-reports/page"
+                class="button"
+            >
+                Medical Reports
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>💊 Prescriptions</h2>
+
+            <p>
+                Upload prescription photos and
+                review AI-readable information.
+            </p>
+
+            <a
+                href="/prescriptions/page"
+                class="button"
+            >
+                Prescriptions
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>🤖 Sehat Saathi AI</h2>
+
+            <p>
+                Ask general health-information questions
+                using the clinic's AI assistant.
+            </p>
+
+            <a
+                href="/ai-chat/page"
+                class="button"
+            >
+                Open AI Chat
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>👨‍⚕️ Find a Doctor</h2>
+
+            <p>
+                Browse available doctors and
+                use smart doctor matching.
+            </p>
+
+            <a
+                href="/doctors/list-page"
+                class="button"
+            >
+                Find Doctor
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>📅 Appointments</h2>
+
+            <p>
+                Book appointments and view
+                your existing appointments.
+            </p>
+
+            <a
+                href="/appointments/my"
+                class="button"
+            >
+                My Appointments
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>💳 Payments</h2>
+
+            <p>
+                Manage appointment payments
+                and payment-related information.
+            </p>
+
+            <a
+                href="/appointments/my"
+                class="button"
+            >
+                Open Appointments
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>🚑 Emergency Help</h2>
+
+            <p>
+                Access emergency guidance and
+                seek appropriate urgent medical care.
+            </p>
+
+            <a
+                href="/"
+                class="button"
+            >
+                Emergency Help
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>📝 Feedback</h2>
+
+            <p>
+                Share your experience with the
+                clinic and its services.
+            </p>
+
+            <a
+                href="/"
+                class="button"
+            >
+                Feedback
+            </a>
+
+        </div>
+
+
+    </section>
+
+
+    <div class="security">
+
+        🔒 <strong>Privacy & Security:</strong>
+
+        Your health information is accessible
+        according to your account permissions and
+        clinic authorization rules.
+
+    </div>
+
+
+</main>
+
+
+</body>
+
+</html>

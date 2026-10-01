@@ -1,0 +1,2391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Sehat Saathi | Smart Healthcare</title>
+
+    <link rel="icon"
+          type="image/png"
+          href="/static/logo.png">
+
+    <link rel="shortcut icon"
+          type="image/png"
+          href="/static/logo.png">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            width: 100%;
+            min-width: 100%;
+            overflow-x: hidden;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #f5f8fb;
+            color: #183b56;
+
+            font-size: 22px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        header {
+            width: 100%;
+            background: white;
+            border-bottom: 1px solid #e5eaf0;
+        }
+
+        .navbar {
+            width: 100%;
+
+            padding: 22px 4%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 30px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+
+            gap: 14px;
+
+            flex-shrink: 0;
+        }
+
+        .brand-logo {
+            width: 58px;
+            height: 58px;
+
+            border-radius: 10px;
+
+            object-fit: cover;
+        }
+
+        .brand h1 {
+            font-size: 32px;
+            color: #0b7188;
+        }
+
+        .brand span {
+            display: block;
+
+            font-size: 16px;
+
+            color: #718096;
+
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+
+            gap: 34px;
+        }
+
+        .nav-links a {
+            font-size: 22px;
+
+            color: #435466;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #0b7894;
+        }
+
+        .nav-buttons {
+            display: flex;
+
+            gap: 11px;
+
+            flex-shrink: 0;
+        }
+
+        .btn {
+            display: inline-block;
+
+            padding: 14px 23px;
+
+            border-radius: 8px;
+
+            font-size: 19px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: #0b7894;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #075d73;
+        }
+
+        .btn-outline {
+            border: 1px solid #0b7894;
+
+            color: #0b7894;
+
+            background: white;
+        }
+
+        .btn-outline:hover {
+            background: #eef8fa;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            width: 100%;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #eaf7fa,
+                    #ffffff,
+                    #eef5fb
+                );
+        }
+
+        .hero-container {
+            width: 100%;
+
+            padding: 95px 6%;
+
+            display: grid;
+
+            grid-template-columns:
+                1.2fr
+                0.8fr;
+
+            gap: 7%;
+
+            align-items: center;
+        }
+
+        .hero-label {
+            display: inline-block;
+
+            padding: 9px 17px;
+
+            background: #dff3f6;
+
+            color: #0b7188;
+
+            border-radius: 20px;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            margin-bottom: 22px;
+        }
+
+        .hero h2 {
+            font-size: 68px;
+
+            line-height: 1.12;
+
+            color: #163d56;
+
+            margin-bottom: 27px;
+        }
+
+        .hero h2 span {
+            color: #0b7894;
+        }
+
+        .hero p {
+            max-width: 900px;
+
+            color: #5c6b78;
+
+            font-size: 22px;
+
+            line-height: 1.7;
+
+            margin-bottom: 34px;
+        }
+
+        .hero-buttons {
+            display: flex;
+
+            gap: 15px;
+        }
+
+
+        /* HERO PANEL */
+
+        .hero-panel {
+            width: 100%;
+
+            background: white;
+
+            border: 1px solid #dce7ed;
+
+            border-radius: 15px;
+
+            padding: 35px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(30, 70, 90, 0.07);
+        }
+
+        .hero-panel h3 {
+            font-size: 28px;
+
+            margin-bottom: 21px;
+
+            color: #164b63;
+        }
+
+        .status-row {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 18px 0;
+
+            border-bottom:
+                1px solid #edf1f4;
+        }
+
+        .status-row:last-child {
+            border-bottom: none;
+        }
+
+        .status-title {
+            font-size: 20px;
+
+            color: #526270;
+        }
+
+        .status-value {
+            font-size: 19px;
+
+            font-weight: bold;
+
+            color: #0b7894;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================
+           COMMON SECTION
+        ========================= */
+
+        .section {
+            width: 100%;
+
+            padding: 80px 4%;
+        }
+
+        .section-header {
+            width: 100%;
+
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 44px;
+
+            color: #193f55;
+
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: #718096;
+
+            font-size: 21px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           SERVICES
+        ========================= */
+
+        .service-grid {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+        .service-card {
+            background: white;
+
+            border:
+                1px solid #e0e7ec;
+
+            border-radius: 11px;
+
+            padding: 32px;
+
+            min-width: 0;
+
+            transition: 0.2s;
+        }
+
+        .service-card:hover {
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                0 8px 22px
+                rgba(40, 80, 100, 0.09);
+        }
+
+        .service-icon {
+            width: 58px;
+            height: 58px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #e9f7fa;
+
+            color: #0b7894;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            font-size: 28px;
+        }
+
+        .service-card h3 {
+            font-size: 27px;
+
+            color: #244a60;
+
+            margin-bottom: 11px;
+        }
+
+        .service-card p {
+            font-size: 22px;
+
+            color: #718096;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           HEALTHCARE INFORMATION
+        ========================= */
+
+        .portal-grid {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 25px;
+        }
+
+        .portal-box {
+            background: white;
+
+            border:
+                1px solid #e0e7ec;
+
+            border-radius: 11px;
+
+            padding: 32px;
+
+            min-width: 0;
+        }
+
+        .portal-box h3 {
+            font-size: 28px;
+
+            color: #214c64;
+
+            margin-bottom: 21px;
+        }
+
+        .portal-list {
+            list-style: none;
+        }
+
+        .portal-list li {
+            padding: 17px 0;
+
+            border-bottom:
+                1px solid #edf1f4;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            gap: 15px;
+
+            font-size: 20px;
+        }
+
+        .portal-list li:last-child {
+            border-bottom: none;
+        }
+
+        .portal-label {
+            color: #566674;
+
+            font-size: 20px;
+        }
+
+        .portal-status {
+            color: #0b7894;
+
+            font-weight: bold;
+
+            font-size: 18px;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================
+           DEPARTMENTS
+        ========================= */
+
+        .department-grid {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 22px;
+        }
+
+        .department-card {
+            background: white;
+
+            border:
+                1px solid #e0e7ec;
+
+            border-radius: 10px;
+
+            padding: 28px;
+
+            min-width: 0;
+        }
+
+        .department-card h3 {
+            font-size: 25px;
+
+            color: #234d63;
+
+            margin-bottom: 10px;
+        }
+
+        .department-card p {
+            font-size: 20px;
+
+            color: #788693;
+
+            line-height: 1.55;
+        }
+
+
+        /* =========================
+           SOLUTIONS / ACHIEVEMENTS
+        ========================= */
+
+        .highlight-grid {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                1.5fr
+                1fr
+                0.75fr;
+
+            gap: 25px;
+        }
+
+        .highlight-card {
+            background: white;
+
+            border:
+                1px solid #dfe7ec;
+
+            border-radius: 11px;
+
+            padding: 32px;
+
+            min-width: 0;
+        }
+
+        .highlight-card h3 {
+            font-size: 29px;
+
+            color: #214c64;
+
+            margin-bottom: 15px;
+        }
+
+        .highlight-card p {
+            color: #6d7c88;
+
+            font-size: 20px;
+
+            line-height: 1.6;
+
+            margin-bottom: 15px;
+        }
+
+        .highlight-list {
+            list-style: none;
+        }
+
+        .highlight-list li {
+            font-size: 20px;
+
+            padding: 10px 0;
+
+            color: #536573;
+        }
+
+        .achievement-number {
+            font-size: 45px;
+
+            font-weight: bold;
+
+            color: #0b7894;
+
+            margin-top: 10px;
+        }
+
+        /* REVIEWS */
+
+        .review-card {
+            padding: 25px;
+        }
+
+        .review-card h3 {
+            font-size: 24px;
+        }
+
+        .stars {
+            color: #d39b22;
+
+            font-size: 21px;
+
+            margin-bottom: 10px;
+        }
+
+        .review-card p {
+            font-size: 18px;
+
+            line-height: 1.5;
+        }
+
+        .review-note {
+            font-size: 16px;
+
+            color: #8996a0;
+        }
+
+
+        /* =========================
+           HOW IT WORKS
+        ========================= */
+
+        .steps-grid {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 25px;
+        }
+
+        .step {
+            background: white;
+
+            border:
+                1px solid #e0e7ec;
+
+            border-radius: 11px;
+
+            padding: 30px;
+
+            min-width: 0;
+        }
+
+        .step-number {
+            width: 46px;
+            height: 46px;
+
+            border-radius: 50%;
+
+            background: #0b7894;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-weight: bold;
+
+            font-size: 19px;
+
+            margin-bottom: 18px;
+        }
+
+        .step h3 {
+            font-size: 25px;
+
+            color: #254c61;
+
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            font-size: 20px;
+
+            color: #74818c;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           EMERGENCY
+        ========================= */
+
+        .emergency-box {
+            width: 100%;
+
+            background: #fff9f5;
+
+            border:
+                1px solid #f1d8c7;
+
+            border-radius: 11px;
+
+            padding: 34px;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .emergency-box h3 {
+            color: #8a4a27;
+
+            font-size: 28px;
+
+            margin-bottom: 9px;
+        }
+
+        .emergency-box p {
+            color: #756b65;
+
+            font-size: 20px;
+
+            line-height: 1.6;
+        }
+
+        .emergency-btn {
+            background: #b55d32;
+
+            color: white;
+
+            padding: 15px 24px;
+
+            border-radius: 8px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================
+           TICKER
+        ========================= */
+
+        .ticker {
+            width: 100%;
+
+            background: #123f53;
+
+            color: white;
+
+            overflow: hidden;
+
+            white-space: nowrap;
+        }
+
+        .ticker-content {
+            display: inline-block;
+
+            padding: 17px 0;
+
+            padding-left: 100%;
+
+            animation:
+                tickerMove 28s
+                linear infinite;
+
+            font-size: 19px;
+        }
+
+        .ticker-item {
+            margin-right: 80px;
+        }
+
+        @keyframes tickerMove {
+
+            from {
+                transform:
+                    translateX(0);
+            }
+
+            to {
+                transform:
+                    translateX(-100%);
+            }
+
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            width: 100%;
+
+            background: #102f40;
+
+            color: white;
+        }
+
+        .footer-container {
+            width: 100%;
+
+            padding:
+                60px
+                4%
+                32px;
+
+            display: grid;
+
+            grid-template-columns:
+                1.4fr
+                1fr
+                1fr
+                1fr;
+
+            gap: 45px;
+        }
+
+        .footer-brand h2 {
+            font-size: 32px;
+
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            color: #b8c8d1;
+
+            font-size: 18px;
+
+            line-height: 1.7;
+
+            max-width: 550px;
+        }
+
+        .footer-column h3 {
+            font-size: 21px;
+
+            margin-bottom: 18px;
+        }
+
+        .footer-column a {
+            display: block;
+
+            color: #b8c8d1;
+
+            font-size: 18px;
+
+            margin-bottom: 13px;
+
+            transition: 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            width: 100%;
+
+            padding:
+                19px
+                4%;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            gap: 15px;
+
+            color: #9fb1bb;
+
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           FLOATING VOICE ASSISTANT
+        ========================= */
+
+        .voice-float {
+            position: fixed;
+
+            right: 28px;
+            bottom: 28px;
+
+            width: 68px;
+            height: 68px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #0b7894;
+
+            color: white;
+
+            border-radius: 50%;
+
+            font-size: 30px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(11, 120, 148, 0.30);
+
+            z-index: 9999;
+
+            transition:
+                transform 0.2s,
+                background 0.2s,
+                box-shadow 0.2s;
+        }
+
+        .voice-float:hover {
+            background: #075d73;
+
+            transform:
+                translateY(-4px)
+                scale(1.05);
+
+            box-shadow:
+                0 12px 30px
+                rgba(11, 120, 148, 0.40);
+        }
+
+        .voice-float:active {
+            transform: scale(0.95);
+        }
+
+
+        /* =========================
+           TABLET
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+
+                padding:
+                    70px
+                    5%;
+            }
+
+            .service-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .department-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .steps-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .highlight-grid {
+                grid-template-columns:
+                    1.4fr
+                    1fr;
+            }
+
+            .review-card {
+                grid-column:
+                    span 2;
+            }
+
+            .footer-container {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            body {
+                font-size: 22px;
+            }
+
+            .navbar {
+                padding:
+                    15px
+                    16px;
+
+                gap: 9px;
+            }
+
+            .brand-logo {
+                width: 46px;
+                height: 46px;
+            }
+
+            .brand h1 {
+                font-size: 25px;
+            }
+
+            .brand span {
+                display: none;
+            }
+
+            .nav-buttons {
+                gap: 5px;
+            }
+
+            .nav-buttons .btn {
+                padding:
+                    10px
+                    12px;
+
+                font-size: 14px;
+            }
+
+
+            /* HERO */
+
+            .hero-container {
+                width: 100%;
+
+                padding:
+                    58px
+                    18px;
+
+                grid-template-columns: 1fr;
+            }
+
+            .hero-label {
+                font-size: 14px;
+            }
+
+            .hero h2 {
+                font-size: 45px;
+
+                line-height: 1.17;
+            }
+
+            .hero p {
+                font-size: 22px;
+
+                line-height: 1.65;
+            }
+
+            .hero-panel {
+                padding: 26px;
+            }
+
+            .hero-panel h3 {
+                font-size: 25px;
+            }
+
+            .status-title {
+                font-size: 19px;
+            }
+
+            .status-value {
+                font-size: 17px;
+            }
+
+
+            /* SECTIONS */
+
+            .section {
+                width: 100%;
+
+                padding:
+                    55px
+                    18px;
+            }
+
+            .section-header h2 {
+                font-size: 34px;
+            }
+
+            .section-header p {
+                font-size: 20px;
+
+                line-height: 1.6;
+            }
+
+
+            /* ALL CARDS */
+
+            .service-grid,
+            .portal-grid,
+            .department-grid,
+            .steps-grid,
+            .highlight-grid {
+
+                width: 100%;
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .service-card {
+                padding: 27px;
+            }
+
+            .service-card h3 {
+                font-size: 25px;
+            }
+
+            .service-card p {
+                font-size: 22px;
+            }
+
+
+            /* PORTAL */
+
+            .portal-box {
+                padding: 27px;
+            }
+
+            .portal-box h3 {
+                font-size: 25px;
+            }
+
+            .portal-list li {
+                font-size: 19px;
+            }
+
+            .portal-label {
+                font-size: 19px;
+            }
+
+            .portal-status {
+                font-size: 17px;
+            }
+
+
+            /* DEPARTMENTS */
+
+            .department-card h3 {
+                font-size: 24px;
+            }
+
+            .department-card p {
+                font-size: 20px;
+            }
+
+
+            /* HIGHLIGHTS */
+
+            .highlight-card h3 {
+                font-size: 27px;
+            }
+
+            .highlight-card p {
+                font-size: 20px;
+            }
+
+            .highlight-list li {
+                font-size: 20px;
+            }
+
+
+            .review-card {
+                grid-column: auto;
+            }
+
+
+            /* STEPS */
+
+            .step h3 {
+                font-size: 24px;
+            }
+
+            .step p {
+                font-size: 20px;
+            }
+
+
+            /* EMERGENCY */
+
+            .emergency-box {
+                flex-direction: column;
+
+                align-items:
+                    flex-start;
+            }
+
+            .emergency-box h3 {
+                font-size: 26px;
+            }
+
+            .emergency-box p {
+                font-size: 20px;
+            }
+
+
+            /* FOOTER */
+
+            .footer-container {
+                grid-template-columns: 1fr;
+
+                padding:
+                    45px
+                    18px
+                    27px;
+            }
+
+            .footer-brand h2 {
+                font-size: 28px;
+            }
+
+            .footer-brand p {
+                font-size: 18px;
+            }
+
+            .footer-column h3 {
+                font-size: 20px;
+            }
+
+            .footer-column a {
+                font-size: 18px;
+            }
+
+            .footer-bottom {
+                padding:
+                    18px;
+
+                flex-direction:
+                    column;
+
+                font-size: 15px;
+            }
+
+
+            /* VOICE BUTTON */
+
+            .voice-float {
+                right: 18px;
+                bottom: 18px;
+
+                width: 60px;
+                height: 60px;
+
+                font-size: 27px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header>
+
+        <div class="navbar">
+
+            <a href="/" class="brand">
+
+                <img
+                    src="/static/logo.png"
+                    alt="Sehat Saathi Logo"
+                    class="brand-logo"
+                >
+
+                <div>
+
+                    <h1>
+                        Sehat Saathi
+                    </h1>
+
+                    <span>
+                        Smart Healthcare Platform
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="#services">
+                    Services
+                </a>
+
+                <a href="#departments">
+                    Departments
+                </a>
+
+                <a href="#how-it-works">
+                    How It Works
+                </a>
+
+            </nav>
+
+
+            <div class="nav-buttons">
+
+                <a
+                    href="/login"
+                    class="btn btn-outline"
+                >
+                    Login
+                </a>
+
+                <a
+                    href="/register"
+                    class="btn btn-primary"
+                >
+                    Create Account
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="hero-container">
+
+            <div>
+
+                <span class="hero-label">
+                    SMART HEALTHCARE SERVICES
+                </span>
+
+                <h2>
+
+                    Your Health,
+
+                    <span>
+                        Your Saathi.
+                    </span>
+
+                </h2>
+
+                <p>
+
+                    Sehat Saathi is a smart healthcare platform
+                    designed to connect patients with healthcare
+                    services, doctors, appointments and medical
+                    information in one place.
+
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="/register"
+                        class="btn btn-primary"
+                    >
+                        Create Account
+                    </a>
+
+                    <a
+                        href="/login"
+                        class="btn btn-outline"
+                    >
+                        Login
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-panel">
+
+                <h3>
+                    Healthcare Services
+                </h3>
+
+                <div class="status-row">
+
+                    <span class="status-title">
+                        Doctor Services
+                    </span>
+
+                    <span class="status-value">
+                        Available
+                    </span>
+
+                </div>
+
+                <div class="status-row">
+
+                    <span class="status-title">
+                        Appointment System
+                    </span>
+
+                    <span class="status-value">
+                        Online
+                    </span>
+
+                </div>
+
+                <div class="status-row">
+
+                    <span class="status-title">
+                        Medical Records
+                    </span>
+
+                    <span class="status-value">
+                        Secure
+                    </span>
+
+                </div>
+
+                <div class="status-row">
+
+                    <span class="status-title">
+                        Patient Support
+                    </span>
+
+                    <span class="status-value">
+                        Available
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         QUICK SERVICES
+    ========================= -->
+
+    <section
+        class="section"
+        id="services"
+    >
+
+        <div class="section-header">
+
+            <h2>
+                Quick Services
+            </h2>
+
+            <p>
+                Access commonly used healthcare services
+                from one place.
+            </p>
+
+        </div>
+
+
+        <div class="service-grid">
+
+
+            <a
+                href="/doctors/list-page"
+                class="service-card"
+            >
+
+                <div class="service-icon">
+                    👨‍⚕️
+                </div>
+
+                <h3>
+                    Find a Doctor
+                </h3>
+
+                <p>
+                    Explore available doctors and
+                    their specialties.
+                </p>
+
+            </a>
+
+
+            <a
+                href="/appointments/new"
+                class="service-card"
+            >
+
+                <div class="service-icon">
+                    📅
+                </div>
+
+                <h3>
+                    Book Appointment
+                </h3>
+
+                <p>
+                    Select a doctor and schedule
+                    your appointment.
+                </p>
+
+            </a>
+
+
+            <a
+                href="/profile"
+                class="service-card"
+            >
+
+                <div class="service-icon">
+                    🩺
+                </div>
+
+                <h3>
+                    Patient Profile
+                </h3>
+
+                <p>
+                    Manage your personal and
+                    health information.
+                </p>
+
+            </a>
+
+
+            <a
+                href="/payments/history-page"
+                class="service-card"
+            >
+
+                <div class="service-icon">
+                    💳
+                </div>
+
+                <h3>
+                    Payments
+                </h3>
+
+                <p>
+                    View your payment information
+                    and history.
+                </p>
+
+            </a>
+
+
+            <a
+                href="/appointments/history"
+                class="service-card"
+            >
+
+                <div class="service-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Appointment History
+                </h3>
+
+                <p>
+                    View your upcoming and previous
+                    appointments.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="service-card"
+            >
+
+                <div class="service-icon">
+                    🏥
+                </div>
+
+                <h3>
+                    Patient Services
+                </h3>
+
+                <p>
+                    Access healthcare information
+                    and support services.
+                </p>
+
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         HEALTHCARE INFORMATION
+    ========================= -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>
+                Healthcare Information
+            </h2>
+
+            <p>
+                Important healthcare services and
+                platform information.
+            </p>
+
+        </div>
+
+
+        <div class="portal-grid">
+
+
+            <div class="portal-box">
+
+                <h3>
+                    Patient Services
+                </h3>
+
+                <ul class="portal-list">
+
+
+                    <li>
+
+                        <span class="portal-label">
+                            Patient Registration
+                        </span>
+
+                        <span class="portal-status">
+                            Online
+                        </span>
+
+                    </li>
+
+
+                    <li>
+
+                        <span class="portal-label">
+                            Doctor Search
+                        </span>
+
+                        <span class="portal-status">
+                            Available
+                        </span>
+
+                    </li>
+
+
+                    <li>
+
+                        <span class="portal-label">
+                            Appointment Booking
+                        </span>
+
+                        <span class="portal-status">
+                            Online
+                        </span>
+
+                    </li>
+
+
+                    <li>
+
+                        <span class="portal-label">
+                            Patient Profile
+                        </span>
+
+                        <span class="portal-status">
+                            Available
+                        </span>
+
+                    </li>
+
+
+                </ul>
+
+            </div>
+
+
+            <div class="portal-box">
+
+                <h3>
+                    Platform Updates
+                </h3>
+
+
+                <ul class="portal-list">
+
+
+                    <li>
+
+                        <span class="portal-label">
+                            Doctor Management
+                        </span>
+
+                        <span class="portal-status">
+                            Active
+                        </span>
+
+                    </li>
+
+
+                    <li>
+
+                        <span class="portal-label">
+                            Appointment System
+                        </span>
+
+                        <span class="portal-status">
+                            Active
+                        </span>
+
+                    </li>
+
+
+                    <li>
+
+                        <span class="portal-label">
+                            Payment Records
+                        </span>
+
+                        <span class="portal-status">
+                            Active
+                        </span>
+
+                    </li>
+
+
+                    <li>
+
+                        <span class="portal-label">
+                            Smart AI Services
+                        </span>
+
+                        <span class="portal-status">
+                            Coming Soon
+                        </span>
+
+                    </li>
+
+
+                </ul>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         DEPARTMENTS
+    ========================= -->
+
+    <section
+        class="section"
+        id="departments"
+    >
+
+        <div class="section-header">
+
+            <h2>
+                Departments & Specialities
+            </h2>
+
+            <p>
+                Healthcare specialities available
+                through the platform.
+            </p>
+
+        </div>
+
+
+        <div class="department-grid">
+
+
+            <div class="department-card">
+
+                <h3>
+                    General Medicine
+                </h3>
+
+                <p>
+                    General health consultation.
+                </p>
+
+            </div>
+
+
+            <div class="department-card">
+
+                <h3>
+                    Pediatrics
+                </h3>
+
+                <p>
+                    Healthcare services for children.
+                </p>
+
+            </div>
+
+
+            <div class="department-card">
+
+                <h3>
+                    Cardiology
+                </h3>
+
+                <p>
+                    Heart and cardiovascular care.
+                </p>
+
+            </div>
+
+
+            <div class="department-card">
+
+                <h3>
+                    Dermatology
+                </h3>
+
+                <p>
+                    Skin healthcare consultation.
+                </p>
+
+            </div>
+
+
+            <div class="department-card">
+
+                <h3>
+                    Orthopedics
+                </h3>
+
+                <p>
+                    Bone and joint healthcare.
+                </p>
+
+            </div>
+
+
+            <div class="department-card">
+
+                <h3>
+                    ENT
+                </h3>
+
+                <p>
+                    Ear, nose and throat care.
+                </p>
+
+            </div>
+
+
+            <div class="department-card">
+
+                <h3>
+                    Gynecology
+                </h3>
+
+                <p>
+                    Women's healthcare services.
+                </p>
+
+            </div>
+
+
+            <div class="department-card">
+
+                <h3>
+                    More Specialities
+                </h3>
+
+                <p>
+                    Additional departments can
+                    be added.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SOLUTIONS
+    ========================= -->
+
+    <section class="section">
+
+        <div class="highlight-grid">
+
+
+            <div class="highlight-card">
+
+                <h3>
+                    Solutions
+                </h3>
+
+                <p>
+                    Important healthcare services
+                    brought together in one platform.
+                </p>
+
+
+                <ul class="highlight-list">
+
+                    <li>
+                        ✓ Patient Registration
+                    </li>
+
+                    <li>
+                        ✓ Doctor Management
+                    </li>
+
+                    <li>
+                        ✓ Appointment Management
+                    </li>
+
+                    <li>
+                        ✓ Medical Records
+                    </li>
+
+                    <li>
+                        ✓ Payment Management
+                    </li>
+
+                    <li>
+                        ✓ Future AI Healthcare Assistance
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <div class="highlight-card">
+
+                <h3>
+                    Achievements
+                </h3>
+
+                <p>
+                    Current platform development.
+                </p>
+
+
+                <div class="achievement-number">
+                    10+
+                </div>
+
+                <p>
+                    Planned Healthcare Features
+                </p>
+
+
+                <div class="achievement-number">
+                    1
+                </div>
+
+                <p>
+                    Unified Healthcare Platform
+                </p>
+
+            </div>
+
+
+            <div class="highlight-card review-card">
+
+                <h3>
+                    Reviews
+                </h3>
+
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+
+                <p>
+                    Patient feedback will appear here.
+                </p>
+
+
+                <div class="review-note">
+                    Real feedback system will be
+                    connected later.
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         HOW IT WORKS
+    ========================= -->
+
+    <section
+        class="section"
+        id="how-it-works"
+    >
+
+        <div class="section-header">
+
+            <h2>
+                How It Works
+            </h2>
+
+            <p>
+                Simple steps to use Sehat Saathi.
+            </p>
+
+        </div>
+
+
+        <div class="steps-grid">
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <h3>
+                    Create Account
+                </h3>
+
+                <p>
+                    Register using your basic
+                    information.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <h3>
+                    Complete Profile
+                </h3>
+
+                <p>
+                    Add relevant personal and
+                    health information.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <h3>
+                    Find Doctor
+                </h3>
+
+                <p>
+                    Explore doctors and their
+                    specialities.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <h3>
+                    Book Appointment
+                </h3>
+
+                <p>
+                    Select an available date
+                    and time.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         EMERGENCY
+    ========================= -->
+
+    <section class="section">
+
+        <div class="emergency-box">
+
+
+            <div>
+
+                <h3>
+                    Emergency Healthcare
+                </h3>
+
+                <p>
+                    For serious or life-threatening
+                    situations, seek immediate
+                    emergency medical assistance.
+                </p>
+
+            </div>
+
+
+            <a
+                href="#"
+                class="emergency-btn"
+            >
+                Emergency Help
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         TICKER
+    ========================= -->
+
+    <div class="ticker">
+
+        <div class="ticker-content">
+
+
+            <span class="ticker-item">
+                🏥 Sehat Saathi —
+                Smart Healthcare Platform
+            </span>
+
+
+            <span class="ticker-item">
+                👨‍⚕️ Find Doctors &
+                Healthcare Specialities
+            </span>
+
+
+            <span class="ticker-item">
+                📅 Online Appointment Management
+            </span>
+
+
+            <span class="ticker-item">
+                📋 Secure Patient Information
+            </span>
+
+
+            <span class="ticker-item">
+                💳 Digital Payment Records
+            </span>
+
+
+            <span class="ticker-item">
+                🤖 Smart Healthcare Features
+                Coming Soon
+            </span>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+
+        <div class="footer-container">
+
+
+            <div class="footer-brand">
+
+                <h2>
+                    Sehat Saathi
+                </h2>
+
+                <p>
+                    Sehat ki dekhbhaal, aasaan aur smart.
+                    A healthcare platform designed to
+                    bring patients and healthcare services
+                    together.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Quick Links
+                </h3>
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/login">
+                    Login
+                </a>
+
+                <a href="/register">
+                    Create Account
+                </a>
+
+                <a href="#services">
+                    Services
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Patient Services
+                </h3>
+
+                <a href="/doctors/list-page">
+                    Find Doctor
+                </a>
+
+                <a href="/appointments/new">
+                    Book Appointment
+                </a>
+
+                <a href="/appointments/history">
+                    Appointment History
+                </a>
+
+                <a href="/payments/history-page">
+                    Payment History
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Support
+                </h3>
+
+                <a href="#">
+                    Help Center
+                </a>
+
+                <a href="#">
+                    Complaint / Feedback
+                </a>
+
+                <a href="#">
+                    Contact Us
+                </a>
+
+                <a href="#">
+                    Privacy Policy
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 Sehat Saathi.
+                All Rights Reserved.
+            </span>
+
+            <span>
+                Powered by Sehat Saathi
+            </span>
+
+        </div>
+
+
+    </footer>
+
+
+    <!-- =========================
+         FLOATING VOICE ASSISTANT
+    ========================= -->
+
+    {% if user %}
+
+    <a
+        href="/voice-assistant"
+        class="voice-float"
+        aria-label="Open Voice Assistant"
+        title="Voice Assistant"
+    >
+        🎤
+    </a>
+
+    {% endif %}
+
+
+</body>
+
+</html>

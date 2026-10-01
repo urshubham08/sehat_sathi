@@ -1,0 +1,267 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Registration | Sanjeevani Clinic</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .register-header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            text-decoration: none;
+            color: #123c69;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .home-link {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .register-wrapper {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .register-card {
+            width: 100%;
+            max-width: 560px;
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 40px;
+            box-shadow: 0 15px 45px rgba(31, 41, 55, 0.10);
+        }
+
+        .register-heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .register-heading h1 {
+            margin: 0 0 10px;
+            font-size: 30px;
+            color: #123c69;
+        }
+
+        .register-heading p {
+            margin: 0;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+        }
+
+        .register-button {
+            width: 100%;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            background: #123c69;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .register-button:hover {
+            background: #0f3156;
+        }
+
+        .security-note {
+            margin-top: 20px;
+            padding: 12px 14px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 10px;
+            color: #166534;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .login-note {
+            text-align: center;
+            margin-top: 25px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .register-card {
+                padding: 28px 20px;
+            }
+
+            .register-heading h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="register-header">
+
+    <a href="/" class="brand">
+        Sanjeevani Clinic
+    </a>
+
+    <a href="/" class="home-link">
+        ← Home
+    </a>
+
+</header>
+
+
+<main class="register-wrapper">
+
+    <section class="register-card">
+
+        <div class="register-heading">
+            <h1>Create Patient Account</h1>
+
+            <p>
+                Register securely to manage your appointments,
+                medical records and clinic services.
+            </p>
+        </div>
+
+
+        <form action="/auth/register" method="post">
+
+            <div class="form-group">
+                <label for="name">Full Name</label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                    autocomplete="name"
+                    required
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="mobile">Mobile Number</label>
+
+                <input
+                    type="tel"
+                    id="mobile"
+                    name="mobile"
+                    placeholder="Enter your mobile number"
+                    autocomplete="tel"
+                    required
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a secure password"
+                    autocomplete="new-password"
+                    minlength="8"
+                    required
+                >
+            </div>
+
+
+            <button
+                type="submit"
+                class="register-button"
+            >
+                Create Patient Account
+            </button>
+
+        </form>
+
+
+        <div class="security-note">
+            🔒 Your password is securely hashed before it is stored.
+            Never share your password with anyone.
+        </div>
+
+
+        <div class="login-note">
+            Your account will be created with the Patient role.
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+</html>
+```

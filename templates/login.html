@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Login | Sanjeevani Clinic</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 7%;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            color: #123c69;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .home-link {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .wrapper {
+            min-height: calc(100vh - 75px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #123c69;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #123c69;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0f3156;
+        }
+
+        .security {
+            margin-top: 20px;
+            padding: 12px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 10px;
+            color: #166534;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .register {
+            text-align: center;
+            margin-top: 25px;
+            color: #6b7280;
+        }
+
+        .register a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <a href="/" class="brand">
+        Sanjeevani Clinic
+    </a>
+
+    <a href="/" class="home-link">
+        ← Home
+    </a>
+
+</header>
+
+<div class="wrapper">
+
+    <div class="card">
+
+        <h1>Patient Login</h1>
+
+        <p class="subtitle">
+            Login securely to access your clinic account.
+        </p>
+
+        <form action="/auth/login" method="post">
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+            <button type="submit">
+                Login Securely
+            </button>
+
+        </form>
+
+        <div class="security">
+            🔒 Your password is securely verified and is not stored
+            as plain text.
+        </div>
+
+        <div class="register">
+
+            Don't have an account?
+
+            <a href="/register">
+                Create Patient Account
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

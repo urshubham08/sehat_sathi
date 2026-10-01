@@ -1,0 +1,1240 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sehat Saathi - Voice Assistant</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .voice-container {
+            width: 90%;
+            max-width: 650px;
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            text-align: center;
+        }
+
+        h1 {
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .language-box {
+            margin-bottom: 25px;
+        }
+
+        select {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            font-size: 15px;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+
+        .mic-button {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: none;
+            background: #2563eb;
+            color: white;
+            font-size: 45px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .mic-button:hover {
+            transform: scale(1.05);
+        }
+
+        .mic-button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .mic-button.listening {
+            background: #dc2626;
+            animation: pulse 1.2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 25px rgba(220, 38, 38, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+            }
+        }
+
+        .status {
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #374151;
+        }
+
+        .text-box {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 17px;
+            color: #374151;
+            margin-bottom: 20px;
+            background: #f9fafb;
+            line-height: 1.6;
+            word-break: break-word;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .button:hover {
+            opacity: 0.9;
+        }
+
+        .speak-button {
+            background: #16a34a;
+            color: white;
+        }
+
+        .stop-button {
+            background: #dc2626;
+            color: white;
+        }
+
+        .clear-button {
+            background: #6b7280;
+            color: white;
+        }
+
+        .command-box {
+            margin-top: 25px;
+            padding: 18px;
+            background: #eff6ff;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .command-box h3 {
+            margin-top: 0;
+            color: #1f2937;
+        }
+
+        .command-box ul {
+            padding-left: 25px;
+            line-height: 1.9;
+            margin-bottom: 0;
+        }
+
+        .command-box li {
+            margin-bottom: 4px;
+        }
+
+        .info-box {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #f0fdf4;
+            color: #166534;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+            .voice-container {
+                width: 94%;
+                padding: 25px 18px;
+            }
+
+            .mic-button {
+                width: 95px;
+                height: 95px;
+                font-size: 38px;
+            }
+
+            .text-box {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="voice-container">
+
+    <h1 id="title">
+        🎤 Sehat Saathi Voice Assistant
+    </h1>
+
+    <p id="subtitle" class="subtitle">
+        Speak your command and Sehat Saathi will understand it.
+    </p>
+
+    <div class="language-box">
+
+        <label for="language">
+            <strong id="languageLabel">Language:</strong>
+        </label>
+
+        <select id="language">
+
+            <option value="en-IN">
+                English
+            </option>
+
+            <option value="hi-IN">
+                हिंदी
+            </option>
+
+        </select>
+
+    </div>
+
+    <button
+        id="micButton"
+        class="mic-button"
+        onclick="startListening()">
+        🎤
+    </button>
+
+    <div id="status" class="status">
+        Click the microphone and speak.
+    </div>
+
+    <div id="textBox" class="text-box">
+        Your spoken text will appear here...
+    </div>
+
+    <div class="buttons">
+
+        <button
+            id="speakButton"
+            class="button speak-button"
+            onclick="speakText()">
+            🔊 Speak Text
+        </button>
+
+        <button
+            id="stopButton"
+            class="button stop-button"
+            onclick="stopSpeaking()">
+            ⏹ Stop Voice
+        </button>
+
+        <button
+            id="clearButton"
+            class="button clear-button"
+            onclick="clearText()">
+            🗑 Clear
+        </button>
+
+    </div>
+
+    <div class="command-box">
+
+        <h3 id="commandsTitle">
+            🎤 Available Commands
+        </h3>
+
+        <ul id="commandList"></ul>
+
+    </div>
+
+    <div class="info-box" id="infoBox">
+        Voice commands can open available Sehat Saathi pages.
+    </div>
+
+</div>
+
+
+<script>
+
+    let recognition = null;
+    let isListening = false;
+
+
+    const micButton =
+        document.getElementById("micButton");
+
+    const statusText =
+        document.getElementById("status");
+
+    const textBox =
+        document.getElementById("textBox");
+
+    const languageSelect =
+        document.getElementById("language");
+
+
+    /*
+     * ==========================================================
+     * TRANSLATIONS
+     * ==========================================================
+     */
+
+    const translations = {
+
+        english: {
+
+            title:
+                "🎤 Sehat Saathi Voice Assistant",
+
+            subtitle:
+                "Speak your command and Sehat Saathi will understand it.",
+
+            language:
+                "Language:",
+
+            status:
+                "Click the microphone and speak.",
+
+            placeholder:
+                "Your spoken text will appear here...",
+
+            speak:
+                "🔊 Speak Text",
+
+            stop:
+                "⏹ Stop Voice",
+
+            clear:
+                "🗑 Clear",
+
+            commands:
+                "🎤 Available Commands",
+
+            commandList: [
+                "Open Dashboard",
+                "Show my appointments",
+                "Show my medical reports",
+                "Show my prescriptions",
+                "Open my profile",
+                "Read this page",
+                "Stop voice"
+            ],
+
+            listening:
+                "Listening... Please speak.",
+
+            converted:
+                "Voice converted to text.",
+
+            speaking:
+                "Speaking...",
+
+            stopped:
+                "Voice stopped.",
+
+            cleared:
+                "Text cleared.",
+
+            noText:
+                "There is no text to speak.",
+
+            unsupported:
+                "Voice input is not supported in this browser.",
+
+            dashboard:
+                "Dashboard command recognized. Dashboard navigation will be connected to the actual patient dashboard route.",
+
+            appointments:
+                "Appointment command recognized. The appointment list route needs to be connected to the actual patient appointment page.",
+
+            reports:
+                "Opening your medical reports.",
+
+            prescriptions:
+                "Opening your prescriptions.",
+
+            profile:
+                "Opening your profile.",
+
+            unknown:
+                "I could not understand this command.",
+
+            info:
+                "Voice commands can open available Sehat Saathi pages."
+
+        },
+
+
+        hindi: {
+
+            title:
+                "🎤 सेहत साथी वॉइस असिस्टेंट",
+
+            subtitle:
+                "अपनी कमांड बोलें और सेहत साथी उसे समझेगा।",
+
+            language:
+                "भाषा:",
+
+            status:
+                "माइक्रोफोन दबाएं और बोलें।",
+
+            placeholder:
+                "आपकी बोली हुई आवाज़ यहां दिखाई देगी...",
+
+            speak:
+                "🔊 टेक्स्ट सुनाएं",
+
+            stop:
+                "⏹ आवाज़ बंद करें",
+
+            clear:
+                "🗑 साफ़ करें",
+
+            commands:
+                "🎤 उपलब्ध वॉइस कमांड",
+
+            commandList: [
+                "डैशबोर्ड खोलें",
+                "मेरी अपॉइंटमेंट दिखाएं",
+                "मेरी मेडिकल रिपोर्ट दिखाएं",
+                "मेरी प्रिस्क्रिप्शन दिखाएं",
+                "मेरी प्रोफाइल खोलें",
+                "इस पेज को पढ़ें",
+                "आवाज़ बंद करें"
+            ],
+
+            listening:
+                "सुन रहा हूं... कृपया बोलें।",
+
+            converted:
+                "आवाज़ को टेक्स्ट में बदल दिया गया है।",
+
+            speaking:
+                "आवाज़ में पढ़ा जा रहा है...",
+
+            stopped:
+                "आवाज़ बंद कर दी गई है।",
+
+            cleared:
+                "टेक्स्ट साफ़ कर दिया गया है।",
+
+            noText:
+                "सुनाने के लिए कोई टेक्स्ट नहीं है।",
+
+            unsupported:
+                "इस ब्राउज़र में वॉइस इनपुट उपलब्ध नहीं है।",
+
+            dashboard:
+                "डैशबोर्ड कमांड पहचानी गई है। असली पेशेंट डैशबोर्ड रूट मिलने के बाद इसे जोड़ा जाएगा।",
+
+            appointments:
+                "अपॉइंटमेंट कमांड पहचानी गई है। पेशेंट अपॉइंटमेंट लिस्ट का असली रूट मिलने के बाद इसे जोड़ा जाएगा।",
+
+            reports:
+                "आपकी मेडिकल रिपोर्ट खोल रही हूं।",
+
+            prescriptions:
+                "आपकी प्रिस्क्रिप्शन खोल रही हूं।",
+
+            profile:
+                "आपकी प्रोफाइल खोल रही हूं।",
+
+            unknown:
+                "मुझे यह कमांड समझ नहीं आई।",
+
+            info:
+                "वॉइस कमांड से सेहत साथी के उपलब्ध पेज खोले जा सकते हैं।"
+
+        }
+
+    };
+
+
+    /*
+     * ==========================================================
+     * LANGUAGE
+     * ==========================================================
+     */
+
+    function getCurrentLanguage() {
+
+        if (languageSelect.value === "hi-IN") {
+            return translations.hindi;
+        }
+
+        return translations.english;
+    }
+
+
+    function isHindi() {
+
+        return languageSelect.value === "hi-IN";
+
+    }
+
+
+    /*
+     * ==========================================================
+     * UPDATE UI
+     * ==========================================================
+     */
+
+    function updateLanguageUI() {
+
+        const language =
+            getCurrentLanguage();
+
+
+        document.getElementById("title").innerText =
+            language.title;
+
+
+        document.getElementById("subtitle").innerText =
+            language.subtitle;
+
+
+        document.getElementById("languageLabel").innerText =
+            language.language;
+
+
+        document.getElementById("status").innerText =
+            language.status;
+
+
+        document.getElementById("textBox").innerText =
+            language.placeholder;
+
+
+        document.getElementById("speakButton").innerText =
+            language.speak;
+
+
+        document.getElementById("stopButton").innerText =
+            language.stop;
+
+
+        document.getElementById("clearButton").innerText =
+            language.clear;
+
+
+        document.getElementById("commandsTitle").innerText =
+            language.commands;
+
+
+        document.getElementById("infoBox").innerText =
+            language.info;
+
+
+        const commandList =
+            document.getElementById("commandList");
+
+
+        commandList.innerHTML = "";
+
+
+        language.commandList.forEach(
+            function(command) {
+
+                const li =
+                    document.createElement("li");
+
+                li.innerText =
+                    command;
+
+                commandList.appendChild(li);
+
+            }
+        );
+
+    }
+
+
+    languageSelect.addEventListener(
+        "change",
+        function() {
+
+            window.speechSynthesis.cancel();
+
+            updateLanguageUI();
+
+        }
+    );
+
+
+    /*
+     * ==========================================================
+     * SPEECH RECOGNITION
+     * ==========================================================
+     */
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    if (!SpeechRecognition) {
+
+        statusText.innerText =
+            getCurrentLanguage().unsupported;
+
+        micButton.disabled = true;
+
+    } else {
+
+        recognition =
+            new SpeechRecognition();
+
+
+        recognition.continuous =
+            false;
+
+
+        recognition.interimResults =
+            false;
+
+
+        recognition.maxAlternatives =
+            1;
+
+
+        recognition.onstart =
+            function() {
+
+                isListening = true;
+
+                micButton.classList.add(
+                    "listening"
+                );
+
+                micButton.innerText =
+                    "🛑";
+
+
+                statusText.innerText =
+                    getCurrentLanguage().listening;
+
+            };
+
+
+        recognition.onresult =
+            function(event) {
+
+                const transcript =
+                    event.results[0][0].transcript;
+
+
+                textBox.innerText =
+                    transcript;
+
+
+                statusText.innerText =
+                    getCurrentLanguage().converted;
+
+
+                processVoiceCommand(
+                    transcript
+                );
+
+            };
+
+
+        recognition.onerror =
+            function(event) {
+
+                isListening = false;
+
+                micButton.classList.remove(
+                    "listening"
+                );
+
+                micButton.innerText =
+                    "🎤";
+
+
+                if (event.error === "not-allowed") {
+
+                    statusText.innerText =
+                        isHindi()
+                            ? "माइक्रोफोन की अनुमति नहीं मिली। ब्राउज़र सेटिंग में माइक्रोफोन की अनुमति दें।"
+                            : "Microphone permission was not allowed. Please allow microphone access in browser settings.";
+
+                    return;
+
+                }
+
+
+                if (event.error === "no-speech") {
+
+                    statusText.innerText =
+                        isHindi()
+                            ? "कोई आवाज़ नहीं मिली। कृपया दोबारा बोलें।"
+                            : "No speech detected. Please try again.";
+
+                    return;
+
+                }
+
+
+                statusText.innerText =
+                    isHindi()
+                        ? "वॉइस इनपुट में समस्या हुई।"
+                        : "Voice input error occurred.";
+
+            };
+
+
+        recognition.onend =
+            function() {
+
+                isListening = false;
+
+                micButton.classList.remove(
+                    "listening"
+                );
+
+                micButton.innerText =
+                    "🎤";
+
+            };
+
+    }
+
+
+    /*
+     * ==========================================================
+     * START LISTENING
+     * ==========================================================
+     */
+
+    function startListening() {
+
+        if (!recognition) {
+
+            return;
+
+        }
+
+
+        if (isListening) {
+
+            recognition.stop();
+
+            return;
+
+        }
+
+
+        window.speechSynthesis.cancel();
+
+
+        recognition.lang =
+            languageSelect.value;
+
+
+        try {
+
+            recognition.start();
+
+        } catch (error) {
+
+            console.log(
+                "Speech recognition start error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /*
+     * ==========================================================
+     * TEXT TO SPEECH
+     * ==========================================================
+     */
+
+    function speakText() {
+
+        const text =
+            textBox.innerText.trim();
+
+
+        const language =
+            getCurrentLanguage();
+
+
+        if (
+            !text ||
+            text === language.placeholder
+        ) {
+
+            statusText.innerText =
+                language.noText;
+
+            return;
+
+        }
+
+
+        speak(text);
+
+    }
+
+
+    function speak(text) {
+
+        if (!text) {
+
+            return;
+
+        }
+
+
+        const language =
+            getCurrentLanguage();
+
+
+        window.speechSynthesis.cancel();
+
+
+        const speech =
+            new SpeechSynthesisUtterance(
+                text
+            );
+
+
+        speech.lang =
+            languageSelect.value;
+
+
+        speech.rate =
+            0.9;
+
+
+        speech.pitch =
+            1;
+
+
+        speech.volume =
+            1;
+
+
+        speech.onstart =
+            function() {
+
+                statusText.innerText =
+                    language.speaking;
+
+            };
+
+
+        speech.onend =
+            function() {
+
+                statusText.innerText =
+                    language.stopped;
+
+            };
+
+
+        window.speechSynthesis.speak(
+            speech
+        );
+
+    }
+
+
+    /*
+     * ==========================================================
+     * STOP SPEAKING
+     * ==========================================================
+     */
+
+    function stopSpeaking() {
+
+        window.speechSynthesis.cancel();
+
+
+        statusText.innerText =
+            getCurrentLanguage().stopped;
+
+    }
+
+
+    /*
+     * ==========================================================
+     * CLEAR
+     * ==========================================================
+     */
+
+    function clearText() {
+
+        window.speechSynthesis.cancel();
+
+
+        textBox.innerText =
+            getCurrentLanguage().placeholder;
+
+
+        statusText.innerText =
+            getCurrentLanguage().cleared;
+
+    }
+
+
+    /*
+     * ==========================================================
+     * VOICE COMMAND PROCESSING
+     * ==========================================================
+     */
+
+    function processVoiceCommand(command) {
+
+        const text =
+            command.toLowerCase().trim();
+
+
+        console.log(
+            "Voice command:",
+            text
+        );
+
+
+        /*
+         * ------------------------------------------------------
+         * MEDICAL REPORTS
+         * Actual project route:
+         *
+         * /medical-reports/page
+         * ------------------------------------------------------
+         */
+
+        if (
+            text.includes("medical reports") ||
+            text.includes("medical report") ||
+            text.includes("my reports") ||
+            text.includes("report") ||
+            text.includes("reports") ||
+            text.includes("मेडिकल रिपोर्ट") ||
+            text.includes("मेरी रिपोर्ट") ||
+            text.includes("रिपोर्ट")
+        ) {
+
+            const message =
+                getCurrentLanguage().reports;
+
+
+            statusText.innerText =
+                message;
+
+
+            speak(message);
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "/medical-reports/page";
+
+                },
+                900
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+         * ------------------------------------------------------
+         * PRESCRIPTIONS
+         *
+         * Actual project route:
+         *
+         * /prescriptions/page
+         * ------------------------------------------------------
+         */
+
+        if (
+            text.includes("prescription") ||
+            text.includes("prescriptions") ||
+            text.includes("my prescription") ||
+            text.includes("प्रिस्क्रिप्शन") ||
+            text.includes("मेरी प्रिस्क्रिप्शन")
+        ) {
+
+            const message =
+                getCurrentLanguage().prescriptions;
+
+
+            statusText.innerText =
+                message;
+
+
+            speak(message);
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "/prescriptions/page";
+
+                },
+                900
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+         * ------------------------------------------------------
+         * PROFILE
+         *
+         * Actual project route:
+         *
+         * /profile/change-photo
+         * ------------------------------------------------------
+         */
+
+        if (
+            text.includes("profile") ||
+            text.includes("my profile") ||
+            text.includes("प्रोफाइल") ||
+            text.includes("मेरी प्रोफाइल")
+        ) {
+
+            const message =
+                getCurrentLanguage().profile;
+
+
+            statusText.innerText =
+                message;
+
+
+            speak(message);
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "/profile/change-photo";
+
+                },
+                900
+            );
+
+
+            return;
+
+        }
+
+
+        /*
+         * ------------------------------------------------------
+         * DASHBOARD
+         *
+         * Exact patient dashboard route is NOT confirmed yet.
+         *
+         * Therefore we do NOT redirect to a guessed URL.
+         * ------------------------------------------------------
+         */
+
+        if (
+            text.includes("dashboard") ||
+            text.includes("open dashboard") ||
+            text.includes("डैशबोर्ड")
+        ) {
+
+            const message =
+                getCurrentLanguage().dashboard;
+
+
+            speak(message);
+
+            return;
+
+        }
+
+
+        /*
+         * ------------------------------------------------------
+         * APPOINTMENTS
+         *
+         * /appointments/book/{doctor_id}
+         * is a BOOKING page, not patient's appointment list.
+         *
+         * Therefore we do NOT use it for
+         * "Show my appointments".
+         * ------------------------------------------------------
+         */
+
+        if (
+            text.includes("appointment") ||
+            text.includes("appointments") ||
+            text.includes("my appointment") ||
+            text.includes("मेरी अपॉइंटमेंट") ||
+            text.includes("अपॉइंटमेंट")
+        ) {
+
+            const message =
+                getCurrentLanguage().appointments;
+
+
+            speak(message);
+
+            return;
+
+        }
+
+
+        /*
+         * ------------------------------------------------------
+         * READ CURRENT PAGE
+         * ------------------------------------------------------
+         */
+
+        if (
+            text.includes("read this page") ||
+            text.includes("read page") ||
+            text.includes("page read") ||
+            text.includes("इस पेज को पढ़ो") ||
+            text.includes("इस पेज को पढ़ें") ||
+            text.includes("पेज पढ़ो") ||
+            text.includes("पेज पढ़ें")
+        ) {
+
+            readCurrentPage();
+
+            return;
+
+        }
+
+
+        /*
+         * ------------------------------------------------------
+         * STOP VOICE
+         * ------------------------------------------------------
+         */
+
+        if (
+            text.includes("stop voice") ||
+            text.includes("stop speaking") ||
+            text.includes("stop") ||
+            text.includes("आवाज़ बंद") ||
+            text.includes("आवाज बंद") ||
+            text.includes("आवाज़ रोक") ||
+            text.includes("आवाज रोक")
+        ) {
+
+            stopSpeaking();
+
+            return;
+
+        }
+
+
+        /*
+         * ------------------------------------------------------
+         * UNKNOWN COMMAND
+         * ------------------------------------------------------
+         */
+
+        const message =
+            getCurrentLanguage().unknown;
+
+
+        speak(message);
+
+    }
+
+
+    /*
+     * ==========================================================
+     * READ CURRENT PAGE
+     * ==========================================================
+     */
+
+    function readCurrentPage() {
+
+        const pageText =
+            document.body.innerText;
+
+
+        if (!pageText.trim()) {
+
+            speak(
+                isHindi()
+                    ? "इस पेज पर पढ़ने के लिए कोई टेक्स्ट नहीं है।"
+                    : "There is no text to read on this page."
+            );
+
+            return;
+
+        }
+
+
+        speak(pageText);
+
+    }
+
+
+    /*
+     * ==========================================================
+     * INITIAL UI
+     * ==========================================================
+     */
+
+    updateLanguageUI();
+
+</script>
+
+</body>
+</html>
+```
